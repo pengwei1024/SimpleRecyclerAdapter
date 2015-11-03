@@ -1,4 +1,3 @@
-package com.baidu.bpit.dushenghuo.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
