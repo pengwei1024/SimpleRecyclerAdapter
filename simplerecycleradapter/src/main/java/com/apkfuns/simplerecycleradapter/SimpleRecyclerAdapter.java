@@ -1,3 +1,4 @@
+package com.apkfuns.simplerecycleradapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
