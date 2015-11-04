@@ -40,15 +40,12 @@ public abstract class SimpleRecyclerAdapter<T> extends RecyclerView.Adapter {
         }
     }
 
-
-    public abstract int getLayoutRes();
-
     /**
      * 设置Item资源文件
      *
      * @return
      */
-    public abstract int[] getLayouts();
+    public abstract int getLayoutRes();
 
     /**
      * 设置每项的值

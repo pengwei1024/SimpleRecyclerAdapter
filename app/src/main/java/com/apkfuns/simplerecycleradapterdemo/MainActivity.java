@@ -31,11 +31,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public int[] getLayouts() {
-            return new int[0];
-        }
-
-        @Override
         public void onBindView(RVHolder holder, int position, String s) {
             holder.setTextView(R.id.text, s);
         }
