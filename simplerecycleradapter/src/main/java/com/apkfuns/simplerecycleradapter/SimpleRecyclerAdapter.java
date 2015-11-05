@@ -2,6 +2,7 @@ package com.apkfuns.simplerecycleradapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 public abstract class SimpleRecyclerAdapter<T> extends RecyclerView.Adapter {
 
-    private List<T> mList;
+    private List<T> mList = new ArrayList<>();
 
     public SimpleRecyclerAdapter(List<T> list) {
         if (list == null) {
@@ -72,6 +73,7 @@ public abstract class SimpleRecyclerAdapter<T> extends RecyclerView.Adapter {
     @Override
     public RVHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         final View content = LayoutInflater.from(parent.getContext()).inflate(getLayoutRes(), parent, false);
+        Log.d("**test", "**" + viewType);
         return new RVHolder(content);
     }
 
@@ -90,6 +92,11 @@ public abstract class SimpleRecyclerAdapter<T> extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return mList.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return 10000;
     }
 
     /**
@@ -147,8 +154,9 @@ public abstract class SimpleRecyclerAdapter<T> extends RecyclerView.Adapter {
             return get(id);
         }
 
-        public void setTextView(int id, CharSequence charSequence) {
+        public RVHolder setTextView(int id, CharSequence charSequence) {
             getTextView(id).setText(charSequence);
+            return this;
         }
     }
 }
