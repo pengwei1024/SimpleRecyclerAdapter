@@ -3,6 +3,11 @@ universal RecyclerView adapter for android
 
 ### step 1
 <a href='https://github.com/pengwei1024/SimpleRecyclerAdapter/blob/master/simplerecycleradapter/src/main/java/com/apkfuns/simplerecycleradapter/SimpleRecyclerAdapter.java' target='_blank'>下载SimpleRecyclerAdapter</a>
+或者Gradle引入
+```groovy
+compile 'com.apkfuns.simplerecycleradapter:simplerecycleradapter:1.0'
+```
+
 
 ### step 2
 创建adapter继承SimpleRecyclerAdapter
