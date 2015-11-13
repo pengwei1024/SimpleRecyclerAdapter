@@ -82,7 +82,7 @@ public abstract class SimpleRecyclerAdapter<T> extends RecyclerView.Adapter {
      * @param position
      * @param t
      */
-    public abstract void onBindView(RVHolder holder, int position, T t);
+    public abstract void onBindView(RVHolder holder, int position, int itemViewType, T t);
 
 
     /**
@@ -114,7 +114,7 @@ public abstract class SimpleRecyclerAdapter<T> extends RecyclerView.Adapter {
             }
         });
         try {
-            onBindView((RVHolder) holder, position, mList.get(position));
+            onBindView((RVHolder) holder, position, holder.getItemViewType(), mList.get(position));
         } catch (IndexOutOfBoundsException e) {
             Log.e(TAG, e.getMessage(), e);
         }

@@ -43,7 +43,7 @@ public class MultipleListActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindView(RVHolder holder, int position, Object o) {
+        public void onBindView(RVHolder holder, int position, int itemViewType, Object o) {
 
         }
 

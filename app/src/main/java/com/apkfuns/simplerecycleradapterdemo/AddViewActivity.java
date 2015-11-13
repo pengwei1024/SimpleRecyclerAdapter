@@ -35,7 +35,7 @@ public class AddViewActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindView(RVHolder holder, int position, String s) {
+        public void onBindView(RVHolder holder, int position, int itemViewType, String s) {
             holder.setTextView(R.id.text, s);
         }
     }

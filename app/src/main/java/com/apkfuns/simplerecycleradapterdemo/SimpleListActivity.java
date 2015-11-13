@@ -36,7 +36,7 @@ public class SimpleListActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onBindView(RVHolder holder, int position, String o) {
+            public void onBindView(RVHolder holder, int position, int itemViewType, String o) {
                 holder.setTextView(R.id.text, o);
             }
         });
@@ -45,7 +45,7 @@ public class SimpleListActivity extends AppCompatActivity {
         recyclerView.setAdapter(new SimpleRecyclerAdapter<String>(R.layout.view_text,
                 new String[]{"1", "2", "3", "4"}) {
             @Override
-            public void onBindView(RVHolder holder, int position, String o) {
+            public void onBindView(RVHolder holder, int position, int itemViewType, String o) {
                 holder.setTextView(R.id.text, o);
             }
         });
@@ -73,7 +73,7 @@ public class SimpleListActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindView(RVHolder holder, int position, String s) {
+        public void onBindView(RVHolder holder, int position, int itemViewType, String s) {
             holder.setTextView(R.id.text, s);
             holder.itemView.setOnLongClickListener(null);
         }
