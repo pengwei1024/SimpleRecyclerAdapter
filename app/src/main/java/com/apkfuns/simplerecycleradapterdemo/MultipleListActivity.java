@@ -51,6 +51,11 @@ public class MultipleListActivity extends AppCompatActivity {
         public int getItemCount() {
             return 5;
         }
+
+        @Override
+        public void onItemClick(RVHolder holder, View view, int position, Object item) {
+            super.onItemClick(holder, view, position, item);
+        }
     }
 
 }
