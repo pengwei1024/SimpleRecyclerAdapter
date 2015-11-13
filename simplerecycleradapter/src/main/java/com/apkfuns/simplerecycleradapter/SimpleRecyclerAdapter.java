@@ -19,7 +19,20 @@ import java.util.List;
  */
 public abstract class SimpleRecyclerAdapter<T> extends RecyclerView.Adapter {
 
+    private static final String TAG = "SimpleRecyclerAdapter";
     private List<T> mList = new ArrayList<>();
+    private OnItemClickListener listener;
+    private int defaultLayoutId;
+
+    /*   ---------------构造方法--------------  */
+
+    public SimpleRecyclerAdapter() {
+        if (getDataList() != null) {
+            addAll(getDataList());
+        } else if (getDataArray() != null) {
+            addAll(Arrays.asList(getDataArray()));
+        }
+    }
 
     public SimpleRecyclerAdapter(List<T> list) {
         addAll(list);
@@ -31,12 +44,36 @@ public abstract class SimpleRecyclerAdapter<T> extends RecyclerView.Adapter {
         }
     }
 
+    public SimpleRecyclerAdapter(int layoutId, List<T> list) {
+        this(list);
+        this.defaultLayoutId = layoutId;
+    }
+
+    public SimpleRecyclerAdapter(int layoutId, T[] array) {
+        this(array);
+        this.defaultLayoutId = layoutId;
+    }
+
+
+
+    /*   ---------------基本操作--------------  */
+
     /**
      * 设置Item资源文件
      *
      * @return
      */
-    public abstract int getLayoutRes();
+    public int getLayoutRes() {
+        return defaultLayoutId;
+    }
+
+    public List<T> getDataList() {
+        return null;
+    }
+
+    public T[] getDataArray() {
+        return null;
+    }
 
     /**
      * 设置每项的值
@@ -49,55 +86,50 @@ public abstract class SimpleRecyclerAdapter<T> extends RecyclerView.Adapter {
 
 
     /**
-     * 每项的点击事件
-     *
-     * @param holder
-     * @param view
-     * @param position
-     * @param item
-     */
-    public void onItemClick(RVHolder holder, View view, int position, T item) {
-
-    }
-
-    /**
      * 导入布局
      *
      * @param viewGroup
-     * @param viewType
      * @return
      */
-    protected View inflateItemView(ViewGroup viewGroup, int viewType) {
-        return null;
+    protected final RVHolder createRVHolder(ViewGroup viewGroup, int layoutId) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(layoutId, viewGroup, false);
+        return new RVHolder(view);
+    }
+
+    protected final RVHolder createRVHolder(View view) {
+        return new RVHolder(view);
     }
 
     @Override
     public RVHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        final View content = LayoutInflater.from(parent.getContext()).inflate(getLayoutRes(), parent, false);
-        Log.d("**test", "**" + viewType);
-        return new RVHolder(content);
+        return createRVHolder(parent, getLayoutRes());
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
-        onBindView((RVHolder) holder, position, mList.get(position));
+    public final void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onItemClick((RVHolder) holder, v, position, mList.get(position));
             }
         });
+        try {
+            onBindView((RVHolder) holder, position, mList.get(position));
+        } catch (IndexOutOfBoundsException e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
     }
-
 
     @Override
     public int getItemCount() {
         return mList.size();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return 10000;
+
+    /*   ---------------数据操作--------------  */
+
+    public List<T> getList() {
+        return mList;
     }
 
     /**
@@ -114,10 +146,11 @@ public abstract class SimpleRecyclerAdapter<T> extends RecyclerView.Adapter {
 
     /**
      * 增加元素
+     *
      * @param t
      */
-    public void add(T t){
-        if (t != null){
+    public void add(T t) {
+        if (t != null) {
             mList.add(t);
             notifyItemInserted(0);
         }
@@ -128,6 +161,31 @@ public abstract class SimpleRecyclerAdapter<T> extends RecyclerView.Adapter {
      */
     public void clear() {
         mList.clear();
+    }
+
+
+    /*   ---------------事件监听--------------  */
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener<T> {
+        void onItemClick(RecyclerView.ViewHolder holder, View view, int position, T item);
+    }
+
+    /**
+     * 每项的点击事件
+     *
+     * @param holder
+     * @param view
+     * @param position
+     * @param item
+     */
+    public void onItemClick(RVHolder holder, View view, int position, T item) {
+        if (listener != null) {
+            listener.onItemClick(holder, view, position, item);
+        }
     }
 }
 

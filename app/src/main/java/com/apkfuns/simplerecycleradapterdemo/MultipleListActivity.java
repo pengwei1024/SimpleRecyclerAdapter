@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.apkfuns.simplerecycleradapter.BaseRecyclerAdapter;
 import com.apkfuns.simplerecycleradapter.RVHolder;
+import com.apkfuns.simplerecycleradapter.SimpleRecyclerAdapter;
 
 /**
  * Created by pengwei08 on 15/11/9.
@@ -27,21 +27,23 @@ public class MultipleListActivity extends AppCompatActivity {
         recyclerView.setAdapter(new MultipleAdapter());
     }
 
-    class MultipleAdapter extends BaseRecyclerAdapter {
+    class MultipleAdapter extends SimpleRecyclerAdapter {
+
         @Override
-        public int getItemViewLayoutId(int position) {
+        public int getItemViewType(int position) {
             if (position == 0 || position == getItemCount() - 1) {
                 return R.layout.adapter_multiple_2;
             }
             return R.layout.adapter_multiple_1;
         }
 
-        public View getItemView(LayoutInflater inflater, ViewGroup group, int position) {
-            return null;
+        @Override
+        public RVHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return createRVHolder(parent, viewType);
         }
 
         @Override
-        public void onBindView(RVHolder holder, int position) {
+        public void onBindView(RVHolder holder, int position, Object o) {
 
         }
 

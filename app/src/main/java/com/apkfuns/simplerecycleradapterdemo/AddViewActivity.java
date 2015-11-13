@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.apkfuns.simplerecycleradapter.RVHolder;
 import com.apkfuns.simplerecycleradapter.SimpleRecyclerAdapter;
 
 /**
